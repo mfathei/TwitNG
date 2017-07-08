@@ -1,5 +1,32 @@
-<div class="ui segment">
-  <p>
-    feed works!
-  </p>
+<div class="ui comments" *ngIf='tweets.length'>
+  <div class="comment" *ngFor='let tweet of tweets'>
+    <a class="avatar">
+      <img src="./assets/avatars/{{tweet.avatar}}">
+    </a>
+    <div class="content">
+      <a class="author">{{tweet.author}}</a>
+      <div class="metadata">
+        <span class="date"> {{tweet.date | date: 'hh:mm:ss dd/mm/yy' }}</span>
+      </div>
+      <div class="text">
+        {{tweet.body}}
+      </div>
+      <div class="actions">
+        <a class="reply">Reply</a>
+        <a class="like" (click)='OnFavorite(tweet)'>
+          <i class="like icon" ></i> {{tweet.favorites.length}}
+          Favourites
+        </a>
+
+        <a class="retweet" (click)='OnRetweet(tweet)'>
+          <i class="retweet icon" ></i> {{tweet.retweets.length}}
+          Retweets
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf='!tweets.length'>
+  <h2>THere are not any tweets here</h2>
 </div>
