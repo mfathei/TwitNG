@@ -1,3 +1,10 @@
+<div class="ui form">
+  <div class="field">
+    <label>What's on your mind ? </label>
+    <textarea name="body" placeholder="Penny for your thoughts" type="text" #myText></textarea>
+  </div>
+  <button class="ui button primary" type="button" (click)="OnNewTweet(myText)">Tweet</button>
+</div>
 <div class="ui comments" *ngIf='tweets.length'>
   <div class="comment" *ngFor='let tweet of tweets'>
     <a class="avatar">
@@ -6,7 +13,7 @@
     <div class="content">
       <a class="author">{{tweet.author}}</a>
       <div class="metadata">
-        <span class="date"> {{tweet.date | date: 'hh:mm:ss dd/mm/yy' }}</span>
+        <span class="date"> {{tweet.date | date: 'hh:mm:ss dd/MM/yyyy' }}</span>
       </div>
       <div class="text">
         {{tweet.body}}

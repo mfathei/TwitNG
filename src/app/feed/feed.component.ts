@@ -36,4 +36,10 @@ export class FeedComponent implements OnInit {
     }
   }
 
+  OnNewTweet(myText) {
+    console.log(myText.value);
+    this.tweets.unshift(
+      { body: myText.value, author: 'Glen', avatar: 'glen.jpg', date: new Date(), retweets: [], favorites: [] }
+    );
+  }
 }
