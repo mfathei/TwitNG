@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-feed',
@@ -17,7 +18,7 @@ export class FeedComponent implements OnInit {
 
   tweetText = '';
 
-  constructor() { }
+  constructor(private userService : UserService) { }
 
   ngOnInit() {
   }
@@ -27,8 +28,8 @@ export class FeedComponent implements OnInit {
   }
 
   OnFavorite(tweet) {
-    if (!this.isUserInCollection(tweet.favorites, 'Glen')) {
-      tweet.favorites.push('Glen');
+    if (!this.isUserInCollection(tweet.favorites, this.userService.getCurrentUser())) {
+      tweet.favorites.push(this.userService.getCurrentUser());
     }
   }
 
