@@ -36,4 +36,8 @@ export class FeedService {
       tweet.retweets.push(this.userService.getCurrentUser());
     }
   }
+
+  getFriends(): Array<string> {
+    return ['Mary', 'Joe', 'Karen', 'Phil', 'Toni'];
+  }
 }
