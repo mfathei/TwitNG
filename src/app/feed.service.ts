@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs';
 import { UserService } from './user.service';
 import { Tweet } from './tweet';
 
@@ -13,7 +15,7 @@ export class FeedService {
     new Tweet('You can’t have great software without a great team, and most software teams behave like dysfunctional families.', 'Joe', new Date(), [], ['Mary', 'Glen'])
   ];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private http: Http) { }
 
   getCurrentFeed(): Array<Tweet> {
     return this.tweets;
@@ -37,7 +39,8 @@ export class FeedService {
     }
   }
 
-  getFriends(): Array<string> {
-    return ['Mary', 'Joe', 'Karen', 'Phil', 'Toni'];
+  getFriends(): Observable<string[]> {
+    return this.http.get('./assets/friends.json').map((resp: Response) => resp.json() as string[]);
+    // return ['Mary', 'Joe', 'Karen', 'Phil', 'Toni'];
   }
 }

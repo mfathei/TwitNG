@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import 'rxjs/Rx';
 
 import { AppComponent } from './app.component';
@@ -10,7 +11,7 @@ import { UserService } from './user.service';
 import { FeedService } from './feed.service';
 import { MessagesComponent } from './messages/messages.component';
 import { FriendsComponent } from './friends/friends.component';
-import { routing, appRoutingProviders} from './app.routing';
+import { routing, appRoutingProviders } from './app.routing';
 import { FriendComponent } from './friend/friend.component';
 
 @NgModule({
@@ -25,7 +26,8 @@ import { FriendComponent } from './friend/friend.component';
   imports: [
     BrowserModule,
     FormsModule,
-    routing
+    routing,
+    HttpModule
   ],
   providers: [UserService, FeedService, appRoutingProviders],
   bootstrap: [AppComponent]
