@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Rx';
 import { UserService } from './user.service';
 import { Tweet } from './tweet';
 
@@ -25,7 +25,13 @@ export class FeedService {
         fetchedTweets.push(this.getTweetFromJson(tweet));
       }
       return fetchedTweets as Array<Tweet>;
-    });
+      // throw 'A really nasty internal error';
+    }).catch(this.handleError);
+  }
+
+  private handleError(err) {
+    console.log(err);
+    return Observable.throw(err);
   }
 
   updateTweet(tweet: Tweet) {
@@ -36,8 +42,10 @@ export class FeedService {
       console.log(resp);
       if (resp.status == 204) {
         console.log('Success. Yay!')
+      } else {
+        throw `Error fetching tweet ${tweet.id}. Received status code : ${resp.status}`;
       }
-    });
+    }).catch(this.handleError);
   }
 
   postNewTweet(tweetText: string) {
