@@ -7,30 +7,62 @@ import { Tweet } from './tweet';
 @Injectable()
 export class FeedService {
 
-  tweets = [
-    ];
+  tweets = [];
 
   constructor(private userService: UserService, private http: Http) { }
 
-  getCurrentFeed(): Array<Tweet> {
-    return this.tweets;
+  private getTweetFromJson(obj: Tweet): Tweet {
+    return new Tweet(
+      obj.id, obj.body, obj.author, obj.date, obj.retweets, obj.favorites
+    );
+  }
+
+  getCurrentFeed(): Observable<Tweet[]> {
+    return this.http.get('/api/tweets').map((resp: Response) => {
+      console.log(resp.json());
+      var fetchedTweets = [];
+      for (let tweet of resp.json().data) {
+        fetchedTweets.push(this.getTweetFromJson(tweet));
+      }
+      return fetchedTweets as Array<Tweet>;
+    });
+  }
+
+  updateTweet(tweet: Tweet) {
+    let body = JSON.stringify(tweet);
+    let url = `/api/tweets/${tweet.id}`;
+
+    return this.http.put(url, body).map((resp: Response) => {
+      console.log(resp);
+      if (resp.status == 204) {
+        console.log('Success. Yay!')
+      }
+    });
   }
 
   postNewTweet(tweetText: string) {
-    this.tweets.unshift(
-      new Tweet(5,tweetText, this.userService.getCurrentUser(), new Date(), [], [])
-    );
+
+    let body = JSON.stringify({
+      body: tweetText, author: this.userService.getCurrentUser(), date: new Date(), retweets: [], favorites: []
+    });
+
+    return this.http.post('/api/tweets', body).map((resp: Response) => {
+      console.log(resp.json());
+      return this.getTweetFromJson(resp.json().data);
+    });
   }
 
   favoriteTweet(tweet: Tweet) {
     if (!tweet.hasFavorited(this.userService.getCurrentUser())) {
       tweet.favorites.push(this.userService.getCurrentUser());
+      this.updateTweet(tweet).subscribe(resp => console.log(resp));
     }
   }
 
   reTweet(tweet: Tweet) {
     if (!tweet.hasRetweeted(this.userService.getCurrentUser())) {
       tweet.retweets.push(this.userService.getCurrentUser());
+      this.updateTweet(tweet).subscribe(resp => console.log(resp));
     }
   }
 
