@@ -7,8 +7,19 @@ describe('twit-ng App', () => {
     page = new TwitNgPage();
   });
 
-  it('should display welcome message', () => {
+  it('should be able to post new tweet', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!!');
+    page.postNewTweet("winning new tweet");
+    // browser.pause();
+    expect(page.getLatestFeed()).toEqual("winning new tweet");
+    expect(page.getFeedCount()).toEqual(6);
+    // expect(page.postNewTweet("winning new tweet")).toEqual('Welcome to app!!');
   });
+
+  it("should increment retweet count", () => {
+    page.navigateTo();
+    page.retweetLatestTweet();
+    expect(page.getLatestTweetRetweetCount()).toEqual("1 Retweets");
+  });
+
 });
