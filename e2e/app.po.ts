@@ -6,7 +6,8 @@ export class TwitNgPage {
   }
 
   postNewTweet(newTweet) {
-    return element(by.name("body")).sendKeys(newTweet);
+    element(by.name("body")).sendKeys(newTweet);
+    element(by.css("button")).click();
   }
 
   getFeedCount() {
@@ -21,7 +22,7 @@ export class TwitNgPage {
     element.all(by.css(".comment .content .actions .retweet")).get(0).click();
   }
 
-  getLatesttweetRetweetCount() {
+  getLatestTweetRetweetCount() {
     return element.all(by.css(".comment .content .actions .retweet")).get(0).getText();
   }
 

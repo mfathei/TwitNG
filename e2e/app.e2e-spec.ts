@@ -1,3 +1,4 @@
+import { browser } from 'protractor';
 import { TwitNgPage } from './app.po';
 
 describe('twit-ng App', () => {
@@ -19,7 +20,8 @@ describe('twit-ng App', () => {
   it("should increment retweet count", () => {
     page.navigateTo();
     page.retweetLatestTweet();
-    expect(page.getLatestTweetRetweetCount()).toEqual("1 Retweets");
+    // browser.pause();
+    expect(page.getLatestTweetRetweetCount()).toEqual("2 Retweets");
   });
 
 });
