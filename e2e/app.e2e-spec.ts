@@ -10,18 +10,18 @@ describe('twit-ng App', () => {
 
   it('should be able to post new tweet', () => {
     page.navigateTo();
-    page.postNewTweet("winning new tweet");
+    page.postNewTweet('winning new tweet');
     // browser.pause();
-    expect(page.getLatestFeed()).toEqual("winning new tweet");
+    expect(page.getLatestFeed()).toEqual('winning new tweet');
     expect(page.getFeedCount()).toEqual(6);
-    // expect(page.postNewTweet("winning new tweet")).toEqual('Welcome to app!!');
+    // expect(page.postNewTweet('winning new tweet')).toEqual('Welcome to app!!');
   });
 
-  it("should increment retweet count", () => {
+  it('should increment retweet count', () => {
     page.navigateTo();
     page.retweetLatestTweet();
     // browser.pause();
-    expect(page.getLatestTweetRetweetCount()).toEqual("2 Retweets");
+    expect(page.getLatestTweetRetweetCount()).toEqual('2 Retweets');
   });
 
 });

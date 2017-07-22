@@ -20,8 +20,8 @@ export class FeedService {
   getCurrentFeed(): Observable<Tweet[]> {
     return this.http.get('/api/tweets').map((resp: Response) => {
       console.log(resp.json());
-      var fetchedTweets = [];
-      for (let tweet of resp.json().data) {
+      const fetchedTweets = [];
+      for (const tweet of resp.json().data) {
         fetchedTweets.push(this.getTweetFromJson(tweet));
       }
       return fetchedTweets as Array<Tweet>;
@@ -35,12 +35,12 @@ export class FeedService {
   }
 
   updateTweet(tweet: Tweet) {
-    let body = JSON.stringify(tweet);
-    let url = `/api/tweets/${tweet.id}`;
+    const body = JSON.stringify(tweet);
+    const url = `/api/tweets/${tweet.id}`;
 
     return this.http.put(url, body).map((resp: Response) => {
       console.log(resp);
-      if (resp.status == 204) {
+      if (resp.status === 204) {
         console.log('Success. Yay!')
       } else {
         throw `Error fetching tweet ${tweet.id}. Received status code : ${resp.status}`;
@@ -50,7 +50,7 @@ export class FeedService {
 
   postNewTweet(tweetText: string) {
 
-    let body = JSON.stringify({
+    const body = JSON.stringify({
       body: tweetText, author: this.userService.getCurrentUser(), date: new Date(), retweets: [], favorites: []
     });
 
