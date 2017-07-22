@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Tweet } from '../tweet';
 import { UserService } from '../user.service';
 import { FeedService } from '../feed.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-feed',

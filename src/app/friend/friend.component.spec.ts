@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { FriendComponent } from './friend.component';
 
 describe('FriendComponent', () => {
@@ -8,7 +8,9 @@ describe('FriendComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FriendComponent ]
+      imports : [RouterTestingModule],
+      declarations: [ FriendComponent ],
+      providers: []
     })
     .compileComponents();
   }));

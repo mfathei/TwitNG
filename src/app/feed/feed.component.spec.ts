@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { FeedComponent } from './feed.component';
+import { FeedService } from '../feed.service';
+import { UserService } from '../user.service';
 
 describe('FeedComponent', () => {
   let component: FeedComponent;
@@ -8,7 +11,9 @@ describe('FeedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FeedComponent ]
+      imports: [ FormsModule, HttpModule],
+      declarations: [ FeedComponent ],
+      providers: [FeedService, UserService]
     })
     .compileComponents();
   }));

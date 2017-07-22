@@ -3,9 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import 'rxjs/Rx';
+import { APP_BASE_HREF } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
+import { LoginComponent } from './login/login.component';
 import { FeedComponent } from './feed/feed.component';
 import { UserService } from './user.service';
 import { FeedService } from './feed.service';
@@ -15,7 +17,6 @@ import { routing, appRoutingProviders } from './app.routing';
 import { FriendComponent } from './friend/friend.component';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { MockDatabaseService } from './mock.database.service';
-import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { LoginComponent } from './login/login.component';
       delay: 100, rootPath: 'api/'
     })
   ],
-  providers: [UserService, FeedService, appRoutingProviders],
+  providers: [UserService, FeedService, appRoutingProviders,{provide: APP_BASE_HREF, useValue:'/'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
